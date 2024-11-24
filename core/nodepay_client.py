@@ -77,21 +77,17 @@ class NodePayClient(BaseClient):
             'accept': '*/*',
             'accept-language': 'en-US,en;q=0.9',
             'content-type': 'application/json',
-            'origin': 'https://app.nodepay.ai',
+            'origin': 'chrome-extension://lgmpfmgeabnnlemejacfljbmonaomfmm',
             'priority': 'u=1, i',
-            'referer': 'https://app.nodepay.ai/',
-            'sec-ch-ua': '"Not)A;Brand";v="99", "Google Chrome";v="127", "Chromium";v="127"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
             'sec-fetch-dest': 'empty',
             'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'cross-site',
+            'sec-fetch-site': 'none',
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
         }
 
     def _ping_headers(self, access_token: str):
         headers = self._auth_headers()
-        return headers.update({"Authorization": f"Bearer {access_token}"}) or headers
+        return headers.update({"authorization": f"Bearer {access_token}"}) or headers
 
     async def register(self, ref_code: str, captcha_service):
         captcha_token = await captcha_service.get_captcha_token_async()
