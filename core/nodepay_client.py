@@ -9,7 +9,7 @@ from random_username.generate import generate_username
 from tenacity import retry, stop_after_attempt, retry_if_not_exception_type
 
 from core.base_client import BaseClient
-from core.models.exceptions import LoginError, TokenError, CloudflareException
+from core.models.exceptions import LoginError, TokenError, CloudflareException, MineError
 from core.utils import logger
 from core.utils.person import Person
 
@@ -160,6 +160,7 @@ class NodePayClient(BaseClient):
             url='https://api.nodepay.org/api/earn/info?',
             headers=self._ping_headers(access_token)
         )
+
         return response['data'].get('total_earning', 0)
 
     async def get_auth_token(self, captcha_service):
@@ -181,18 +182,23 @@ class NodePayClient(BaseClient):
             'version': '2.2.7'
         }
 
-        try:
-            await self.make_request(
-                method='POST',
-                url='https://nw.nodepay.org/api/network/ping',
-                headers=self._ping_headers(access_token),
-                json_data=json_data
-            )
-            
-            return await self.info(access_token)
-        except Exception as e:
-            tokens = self.load_tokens()
-            if self.email in tokens:
-                del tokens[self.email]
-                self.save_tokens(tokens)
-            raise TokenError("Token invalid or expired") from e
+        res = await self.make_request(
+            method='POST',
+            url='https://nw.nodepay.org/api/network/ping',
+            headers=self._ping_headers(access_token),
+            json_data=json_data
+        )
+
+        if not res.get('success'):
+            code = res.get('code', '')
+            if code == -240:
+                # Token invalid
+                tokens = self.load_tokens()
+                if self.email in tokens:
+                    del tokens[self.email]
+                    self.save_tokens(tokens)
+                raise TokenError("Token invalid or expired")
+            else:
+                raise MineError(res.get('msg', 'Unknown mining error'))
+
+        return True
