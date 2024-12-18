@@ -13,7 +13,7 @@ HERE = pathlib.Path(__file__).parent
 
 # This call to setup() does all the work
 setup(
-    name='nodepay-fork',
+    name='nodepay_fork',
     version='0.0.1',
     packages=find_packages(),
     package_data={
