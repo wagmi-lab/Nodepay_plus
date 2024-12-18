@@ -1,0 +1,32 @@
+name: Deploy to PyPI
+
+on:
+  push:
+    branches:  
+      - master
+  
+jobs:
+  deploy:
+    runs-on: self-hosted
+    name: Deploy using worker_1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+
+      - name: Build package
+        run: |
+          # replace setup.py 0.0.1 with a variable
+          input="0.0.${{ github.run_attempt }}"
+          echo "New Version: $input"
+          sed -i "s/0.0.1/$input/g" setup.py
+          python setup.py sdist upload -r local
