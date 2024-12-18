@@ -16,6 +16,11 @@ setup(
     name='nodepay-fork',
     version='0.0.1',
     packages=find_packages(),
+    package_data={
+        'grass-fork': [
+            'requirements.txt',
+        ],
+    },
     include_package_data=True,
     install_requires=install_reqs,
     author='Quant',
