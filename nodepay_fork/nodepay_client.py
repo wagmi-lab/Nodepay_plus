@@ -8,10 +8,10 @@ import os
 from random_username.generate import generate_username
 from tenacity import retry, stop_after_attempt, retry_if_not_exception_type
 
-from core.base_client import BaseClient
-from core.models.exceptions import LoginError, TokenError, CloudflareException, MineError
-from core.utils import logger
-from core.utils.person import Person
+from base_client import BaseClient
+from models.exceptions import LoginError, TokenError, CloudflareException, MineError
+from utils import logger
+from utils.person import Person
 
 # Suppress the specific warning
 warnings.filterwarnings("ignore", category=UserWarning, message="Curlm alread closed!")

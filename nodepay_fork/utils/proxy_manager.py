@@ -1,7 +1,7 @@
 import asyncio
 from collections import deque
 from better_proxy import Proxy
-from core.utils.file_manager import file_to_list
+from utils.file_manager import file_to_list
 
 proxies = deque()
 

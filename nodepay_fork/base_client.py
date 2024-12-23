@@ -1,10 +1,10 @@
 import json
 
-from core.utils import logger
+from utils import logger
 from curl_cffi.requests import AsyncSession
 
 from core import proofing
-from core.models.exceptions import CloudflareException
+from models.exceptions import CloudflareException
 import asyncio
 
 

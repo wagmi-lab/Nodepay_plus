@@ -2,12 +2,12 @@
 import asyncio
 import traceback
 from typing import List
-from core.utils import logger
+from utils import logger
 import random
-from core.utils import proxy_manager
-from core.utils.account_manager import AccountManager
-from core.utils.file_manager import file_to_list
-from core.utils.proxy_manager import load_proxy
+from utils import proxy_manager
+from utils.account_manager import AccountManager
+from utils.file_manager import file_to_list
+from utils.proxy_manager import load_proxy
 
 
 class Bot:

@@ -7,12 +7,12 @@ from datetime import datetime
 import time
 
 from faker import Faker
-from core.utils import logger
-from core.models.account import Account
-from core.models.exceptions import CloudflareException, LoginError, MineError, TokenError
-from core.nodepay_client import NodePayClient
-from core.utils.file_manager import str_to_file
-from core.utils.proxy_manager import get_proxy, release_proxy
+from utils import logger
+from models.account import Account
+from models.exceptions import CloudflareException, LoginError, MineError, TokenError
+from nodepay_client import NodePayClient
+from utils.file_manager import str_to_file
+from utils.proxy_manager import get_proxy, release_proxy
 from pyuseragents import random as random_useragent
 import random
 

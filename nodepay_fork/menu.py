@@ -2,9 +2,9 @@ from art import text2art
 from termcolor import colored
 import configparser
 import os
-from core.utils.logger import logger
-from core.utils.bot import Bot
-from core.captcha import CaptchaService
+from utils.logger import logger
+from utils.bot import Bot
+from captcha import CaptchaService
 
 class ConsoleMenu:
     def __init__(self, config_file="data/settings.ini"):
